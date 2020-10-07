@@ -32,13 +32,6 @@ public class MultiHash {
         hashes = random.ints( 0, Integer.MAX_VALUE).distinct().limit(nHash).toArray();
         flows = random.ints(0, Integer.MAX_VALUE).distinct().limit(nFlows).boxed().collect(Collectors.toList());
 
-//       hashes = random.ints(nHash, 0, Integer.MAX_VALUE).toArray();
-//       flows = new Random().ints(1, Integer.MAX_VALUE).distinct().limit(nFlows).boxed().collect(Collectors.toList());
-//       flows = new ArrayList<Integer>();
-//       for(int i= 0; i < nFlows; i++ ){
-//           flows.add(i);
-//       }
-//        Collections.shuffle(flows);
     }
 
     public int nextHash(int next, int flow, HashSet<Integer> set){

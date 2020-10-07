@@ -27,8 +27,8 @@ public class CuckooHash {
         table = new int[nEntries];
         Arrays.fill(table, -1);
         Random random = new Random();
-//        hashes = random.ints( 0, Integer.MAX_VALUE).distinct().limit(nHashes).toArray();
-//        flows = random.ints(0, Integer.MAX_VALUE).distinct().limit(nFlows).boxed().collect(Collectors.toList());
+        hashes = random.ints( 0, Integer.MAX_VALUE).distinct().limit(nHashes).toArray();
+        flows = random.ints(0, Integer.MAX_VALUE).distinct().limit(nFlows).boxed().collect(Collectors.toList());
 
     }
 
