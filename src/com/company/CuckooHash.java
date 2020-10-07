@@ -12,8 +12,8 @@ public class CuckooHash {
     private int nHashes;
     private int nCuckoo;
     private int[] table;
-    public int[] hashes;
-    public List<Integer> flows;
+    private int[] hashes;
+    private List<Integer> flows;
     public CuckooHash(int nEntries, int nFLows, int nHashes, int nCuckoo){
         this.nHashes = nHashes;
         this.nFlows = nFLows;
@@ -32,7 +32,7 @@ public class CuckooHash {
 
     }
 
-    public boolean insert(int flow){
+    private boolean insert(int flow){
         for(int i = 0; i < nHashes; i++){
             int nextIndex = getIndex(i, flow);
             if(table[nextIndex] == -1){
@@ -51,7 +51,7 @@ public class CuckooHash {
 
     }
 
-    public boolean move(int index, int s){
+    private boolean move(int index, int s){
         if(s == 0){
             return false;
         }
@@ -78,27 +78,8 @@ public class CuckooHash {
 
 
 
-//    private void cuckoo(int count, int flow, int next, HashSet<Integer> set){
-//        if(count == nCuckoo){
-//            return;
-//        }
-//
-//        next = next % nHashes;
-//        int index = (hashes[next] ^ flow)%nEntries;
-//        if(set.contains(index)){
-//            return;
-//        }
-//        if(table[index] == -1) {
-//            table[index] = flow;
-//        }else{
-//            set.add(index);
-//            cuckoo(count + 1,table[index], next + 1, set);
-//            table[index] = flow;
-//        }
-//
-//    }
 
-    public int getIndex(int i,  int flow){
+    private int getIndex(int i, int flow){
         return (hashes[i] ^ flow)%nEntries;
     }
 
@@ -123,17 +104,5 @@ public class CuckooHash {
         simulate();
         print();
     }
-
-
-//    private void simulate(){
-//        for(int i : flows){
-//
-//            int index = nextHash(0,i,new HashSet<Integer>());
-//            if(index != -1){
-//                table[index] = i;
-//            }
-//        }
-//    }
-
 
 }

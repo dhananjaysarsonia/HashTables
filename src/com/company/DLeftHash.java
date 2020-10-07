@@ -7,27 +7,18 @@ import java.util.stream.Collectors;
 
 public class DLeftHash {
     //input: number of table entries, int numFlows, int numberOfSegments
-    int nEntries;
-    int nFlows;
-    int nSegments;
+    private int nEntries;
+    private int nFlows;
+    private int nSegments;
     private int[] table;
-    public int[] hashes;
-    private int nHash;
-    public List<Integer> flows;
-    int size;
-    //if 10 with 4 segments
-    //0 = 0
-    // 1 = 1
-    //2 = 2
-    //3 = 3
-    // 4 = 0
-    //size = table/segment
-    //for every segment move from left to right, find empty and insert
+    private int[] hashes;
+    private List<Integer> flows;
+    private int size;
+
     public DLeftHash(int nEntries, int nFlows, int nSegments){
         this.nEntries = nEntries;
         this.nFlows = nFlows;
         this.nSegments = nSegments;
-        this.nHash = nSegments;
         size = nEntries/nSegments;
         initializeHash();
     }
