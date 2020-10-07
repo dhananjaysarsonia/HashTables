@@ -6,5 +6,10 @@ public class Main {
 	// write your code here
         MultiHash multiHash = new MultiHash(3,1000,1000);
         multiHash.startSimulation();
+
+        CuckooHash cuckooHash = new CuckooHash(1000,1000,3,2);
+        cuckooHash.hashes = multiHash.hashes;
+        cuckooHash.flows = multiHash.flows;
+        cuckooHash.startSimulation();
     }
 }

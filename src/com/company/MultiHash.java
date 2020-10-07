@@ -1,15 +1,16 @@
 package com.company;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MultiHash {
     //three entries, number of hashes, number of flows, and number of table entries
 
     private int nHash;
-    private int nFlows;
+    public int nFlows;
     private int nEntries;
     private int[] table;
-    private List<Integer> flows;
+    public List<Integer> flows;
     int[] hashes;
     public MultiHash(int nHash, int nFlows, int nEntries){
         this.nFlows = nFlows;
@@ -28,30 +29,37 @@ public class MultiHash {
        table = new int[nEntries];
        Arrays.fill(table, -1);
        Random random = new Random();
-       hashes = random.ints(nHash, 0, Integer.MAX_VALUE).toArray();
-       flows = new ArrayList<Integer>();
-       for(int i= 0; i < nFlows; i++ ){
-           flows.add(i);
-       }
-        Collections.shuffle(flows);
+        hashes = random.ints( 0, Integer.MAX_VALUE).distinct().limit(nHash).toArray();
+        flows = random.ints(0, Integer.MAX_VALUE).distinct().limit(nFlows).boxed().collect(Collectors.toList());
+
+//       hashes = random.ints(nHash, 0, Integer.MAX_VALUE).toArray();
+//       flows = new Random().ints(1, Integer.MAX_VALUE).distinct().limit(nFlows).boxed().collect(Collectors.toList());
+//       flows = new ArrayList<Integer>();
+//       for(int i= 0; i < nFlows; i++ ){
+//           flows.add(i);
+//       }
+//        Collections.shuffle(flows);
     }
 
     public int nextHash(int next, int flow, HashSet<Integer> set){
 
         //make sure next is modded before coming her
-        next = next % nHash;
-        int index = (hashes[next] ^ flow)%nEntries;
-        //System.out.println(index);
-        if(set.contains(index)){
-           // System.out.println("here");
-
+        if(next == nHash){
             return -1;
         }
+//        next = next % nHash;
+        int index = (hashes[next] ^ flow)%nEntries;
+        //System.out.println(index);
+//        if(set.contains(index)){
+//           // System.out.println("here");
+//
+//            return -1;
+//        }
 
         if(table[index] == -1){
             return index;
         }else{
-            set.add(index);
+           // set.add(index);
             return nextHash(next + 1,flow, set);
         }
     }
@@ -74,7 +82,7 @@ public class MultiHash {
                 empty++;
             }
         }
-        System.out.println("Empty indexes: " + empty);
+        System.out.println("Flows in MultiHash: " + (table.length - empty));
 
     }
 
